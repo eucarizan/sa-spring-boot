@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -23,6 +24,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 //           The section titled "Build and Run using Command Line tools".
 
 @SpringBootApplication
+@EnableConfigurationProperties(RewardsRecipientProperties.class)
 public class RewardsApplication {
     static final String SQL = "SELECT count(*) FROM T_ACCOUNT";
 
@@ -37,6 +39,11 @@ public class RewardsApplication {
     CommandLineRunner commandLineRunner(JdbcTemplate jdbcTemplate) {
 	Long numberOfAccounts = jdbcTemplate.queryForObject(SQL, Long.class);
 	return args -> logger.info("Hello, there are {} accounts", numberOfAccounts);
+    }
+
+    @Bean
+    CommandLineRunner commandLineRunner2(RewardsRecipientProperties rewardRecipientProperties) {
+	return args -> logger.info("Recipient: {}", rewardRecipientProperties.getName());
     }
 
     // TODO-07 (Optional): Enable full debugging in order to observe how Spring Boot

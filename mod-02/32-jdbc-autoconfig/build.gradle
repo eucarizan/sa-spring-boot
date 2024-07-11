@@ -1,4 +1,6 @@
-apply plugin: "org.springframework.boot"
+plugins {
+    id 'org.springframework.boot' version '2.7.5'
+}
 
 dependencies {
     implementation project(':00-rewards-common')
