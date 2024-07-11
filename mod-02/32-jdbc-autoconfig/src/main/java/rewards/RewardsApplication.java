@@ -3,23 +3,7 @@ package rewards;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
-
-// TODO-00 : In this lab, you are going to exercise the following:
-// - Understanding how auto-configuration is triggered in Spring Boot application
-// - Using auto-configuring DataSource in test and application code
-// - Understanding how @SpringBootTest is used to create application context in test
-// - Implementing CommandLineRunner using auto-configured JdbcTemplate
-// - Disabling a particular auto-configuration
-// - Exercising the usage of @ConfigurationProperties
-
-// TODO-01 : Open pom.xml or build.gradle, look for TO-DO-01
-
-// TODO-02 : In pom.xml or build.gradle, look for TO-DO-02
-
-// TODO-03 : Turn this 'RewardsApplication' into a Spring Boot application
-// - Add an appropriate annotation to this class
-
-// --------------------------------------------
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 // TODO-11 (Optional) : Disable 'DataSource' auto-configuration
 // - Note that you are using your own 'DataSource' bean now
@@ -35,6 +19,7 @@ import org.springframework.boot.SpringApplication;
 // TODO-13 (Optional) : Follow the instruction in the lab document.
 //           The section titled "Build and Run using Command Line tools".
 
+@SpringBootApplication
 public class RewardsApplication {
     static final String SQL = "SELECT count(*) FROM T_ACCOUNT";
 
