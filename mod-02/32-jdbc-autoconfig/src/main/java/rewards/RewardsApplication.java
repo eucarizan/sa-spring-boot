@@ -46,15 +46,4 @@ public class RewardsApplication {
 	return args -> logger.info("Recipient: {}", rewardRecipientProperties.getName());
     }
 
-    // TODO-07 (Optional): Enable full debugging in order to observe how Spring Boot
-    //           performs its auto-configuration logic
-    // - Follow TO-DO-07 in application.properties, then come back here.
-    // - Run the application
-    // - In the console output, find "CONDITIONS EVALUATION REPORT".
-    //   It represents the auto-configuration logic used by Spring Boot.
-    // - Search for "JdbcTemplateAutoConfiguration matched:" and
-    //   "DataSourceAutoConfiguration matched:". Note that each @Conditional*
-    //   represents a single conditional statement in the "JdbcTemplateAutoConfiguration"
-    //   and "DataSourceAutoConfiguration" classes.
-
 }
