@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="rewards.internal.account.JdbcAccountRepositoryTests" tests="3" skipped="0" failures="0" errors="0" timestamp="2024-07-11T09:42:03" hostname="DESKTOP-6DCSA7S" time="0.203">
+  <properties/>
+  <testcase name="testFindAccountByCreditCard()" classname="rewards.internal.account.JdbcAccountRepositoryTests" time="0.111"/>
+  <testcase name="testFindAccountByCreditCardNoAccount()" classname="rewards.internal.account.JdbcAccountRepositoryTests" time="0.047"/>
+  <testcase name="testUpdateBeneficiaries()" classname="rewards.internal.account.JdbcAccountRepositoryTests" time="0.043"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
