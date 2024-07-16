@@ -1,31 +1,37 @@
 package rewards.internal.account;
 
-import common.money.MonetaryAmount;
-import common.money.Percentage;
-import rewards.AccountContribution;
-import rewards.AccountContribution.Distribution;
-
-import javax.persistence.*;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import rewards.AccountContribution;
+import rewards.AccountContribution.Distribution;
+
+import common.money.MonetaryAmount;
+import common.money.Percentage;
+
 /**
- * An account for a member of the reward network. An account has one or more
- * beneficiaries whose allocations must add up to 100%.
+ * An account for a member of the reward network. An account has one or more beneficiaries whose allocations must add up
+ * to 100%.
  * 
- * An account can make contributions to its beneficiaries. Each contribution is
- * distributed among the beneficiaries based on an allocation.
+ * An account can make contributions to its beneficiaries. Each contribution is distributed among the beneficiaries
+ *  based on an allocation.
  * 
  * An entity. An aggregate.
  */
-
 @Entity
-@Table(name = "T_ACCOUNT")
+@Table(name="T_ACCOUNT")
 public class Account {
 
 	@Id
-	@Column(name = "ID")
+	@Column(name="id")
 	private Long entityId;
 
 	// No need for @Column, mapped automatically to NUMBER
@@ -35,10 +41,10 @@ public class Account {
 	private String name;
 
 	@OneToMany
-	@JoinColumn(name = "ACCOUNT_ID")
+	@JoinColumn(name="ACCOUNT_ID")
 	private Set<Beneficiary> beneficiaries = new HashSet<Beneficiary>();
 
-	@Column(name = "CREDIT_CARD")
+	@Column(name="CREDIT_CARD")
 	private String creditCardNumber;
 
 	public Account() {
@@ -46,7 +52,6 @@ public class Account {
 
 	/**
 	 * Create a new account.
-	 * 
 	 * @param number the account number
 	 * @param name   the name on the account
 	 */
@@ -103,7 +108,6 @@ public class Account {
 
 	/**
 	 * Add a single beneficiary with a 100% allocation percentage.
-	 * 
 	 * @param beneficiaryName the name of the beneficiary (should be unique)
 	 */
 	public void addBeneficiary(String beneficiaryName) {
@@ -112,18 +116,15 @@ public class Account {
 
 	/**
 	 * Add a single beneficiary with the specified allocation percentage.
-	 * 
 	 * @param beneficiaryName      the name of the beneficiary (should be unique)
-	 * @param allocationPercentage the beneficiary's allocation percentage within
-	 *                             this account
+	 * @param allocationPercentage the beneficiary's allocation percentage within this account
 	 */
 	public void addBeneficiary(String beneficiaryName, Percentage allocationPercentage) {
 		beneficiaries.add(new Beneficiary(beneficiaryName, allocationPercentage));
 	}
 
 	/**
-	 * Validation check that returns true only if the total beneficiary allocation
-	 * adds up to 100%.
+	 * Validation check that returns true only if the total beneficiary allocation adds up to 100%.
 	 */
 	public boolean isValid() {
 		Percentage totalPercentage = Percentage.zero();
@@ -143,10 +144,8 @@ public class Account {
 	}
 
 	/**
-	 * Make a monetary contribution to this account. The contribution amount is
-	 * distributed among the account's beneficiaries based on each beneficiary's
-	 * allocation percentage.
-	 * 
+	 * Make a monetary contribution to this account. The contribution amount is distributed among the account's 
+	 * beneficiaries based on each beneficiary's allocation percentage.
 	 * @param amount       the total amount to contribute
 	 */
 	public AccountContribution makeContribution(MonetaryAmount amount) {
@@ -160,7 +159,6 @@ public class Account {
 
 	/**
 	 * Distribute the contribution amount among this account's beneficiaries.
-	 * 
 	 * @param amount the total contribution amount
 	 * @return the individual beneficiary distributions
 	 */
@@ -169,18 +167,16 @@ public class Account {
 		for (Beneficiary beneficiary : beneficiaries) {
 			MonetaryAmount distributionAmount = amount.multiplyBy(beneficiary.getAllocationPercentage());
 			beneficiary.credit(distributionAmount);
-			Distribution distribution = new Distribution(beneficiary.getName(), distributionAmount,
-					beneficiary.getAllocationPercentage(), beneficiary.getSavings());
+			Distribution distribution = new Distribution(beneficiary.getName(), distributionAmount, beneficiary
+			.getAllocationPercentage(), beneficiary.getSavings());
 			distributions.add(distribution);
 		}
 		return distributions;
 	}
 
 	/**
-	 * Returns the beneficiaries for this account. Callers should not attempt to
-	 * hold on or modify the returned set. This method should only be used
-	 * transitively; for example, called to facilitate account reporting.
-	 * 
+	 * Returns the beneficiaries for this account. Callers should not attempt to hold on or modify the returned set. 
+	 * This method should only be used transitively; for example, called to facilitate account reporting.
 	 * @return the beneficiaries of this account
 	 */
 	public Set<Beneficiary> getBeneficiaries() {
@@ -188,10 +184,8 @@ public class Account {
 	}
 
 	/**
-	 * Returns a single account beneficiary. Callers should not attempt to hold on
-	 * or modify the returned object. This method should only be used transitively;
-	 * for example, called to facilitate reporting or testing.
-	 * 
+	 * Returns a single account beneficiary. Callers should not attempt to hold on or modify the returned object. This
+	 * method should only be used transitively; for example, called to facilitate reporting or testing.
 	 * @param name the name of the beneficiary e.g "Annabelle"
 	 * @return the beneficiary object
 	 */
@@ -205,9 +199,8 @@ public class Account {
 	}
 
 	/**
-	 * Used to restore an allocated beneficiary. Should only be called by the
-	 * repository responsible for reconstituting this account.
-	 * 
+	 * Used to restore an allocated beneficiary. Should only be called by the repository responsible for reconstituting 
+	 * this account.
 	 * @param beneficiary the beneficiary
 	 */
 	void restoreBeneficiary(Beneficiary beneficiary) {

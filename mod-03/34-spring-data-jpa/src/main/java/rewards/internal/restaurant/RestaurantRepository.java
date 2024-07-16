@@ -1,6 +1,6 @@
 package rewards.internal.restaurant;
 
-import org.springfamework.data.repository.Repository;
+import org.springframework.data.repository.Repository;
 
 /**
  * Loads restaurant aggregates. Called by the reward network to find and reconstitute Restaurant entities from an

@@ -13,16 +13,18 @@ import org.springframework.stereotype.Component;
 @SpringBootApplication
 @Import(RewardsConfig.class)
 public class RewardsApplication {
-	private final Logger logger = LoggerFactory.getLogger(RewardsApplication.class);
+	private final Logger logger 
+	        = LoggerFactory.getLogger(RewardsApplication.class);
 
 	private static final String SQL = "SELECT count(*) FROM T_ACCOUNT";
 
 	public static void main(String[] args) {
-		SpringApplication.run(RewardsApplication.class, args);
+		SpringApplication.run(RewardsApplication.class,args);
 	}
 
 	@Component
-	public final class QueryAccountCountRunner implements CommandLineRunner {
+	public final class QueryAccountCountRunner 
+	        implements CommandLineRunner {
 
 		private JdbcTemplate jdbcTemplate;
 
@@ -32,12 +34,9 @@ public class RewardsApplication {
 
 		@Override
 		public void run(String... args) throws Exception {
-			long accountCount = this.jdbcTemplate.queryForObject(SQL, Long.class);
-			logger.info("Number of accounts:{}", accountCount);
+			long accountCount 
+			        = this.jdbcTemplate.queryForObject(SQL, Long.class);
+			logger.info("Number of accounts: {}", accountCount);
 		}
 	}
 }
-
-// TODO-07: Configure JPA as specified in the TO-DO-07 in the
-//          src/test/resources/application.properties
-//          ("application.properties" file used for testing)

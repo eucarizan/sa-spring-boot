@@ -1,17 +1,24 @@
 package rewards.internal.restaurant;
 
-import common.money.MonetaryAmount;
-import common.money.Percentage;
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
 import rewards.Dining;
 import rewards.internal.account.Account;
 
-import javax.persistence.*;
+import common.money.MonetaryAmount;
+import common.money.Percentage;
 
 /**
+ * A restaurant establishment in the network. Like AppleBee's.
+ * 
  * Restaurants calculate how much benefit may be awarded to an account for
  * dining based on a availability policy and a benefit percentage.
  */
-
 @Entity
 @Table(name = "T_RESTAURANT")
 public class Restaurant {
@@ -23,12 +30,10 @@ public class Restaurant {
 	@Column(name = "MERCHANT_NUMBER")
 	private String number;
 
+    // No need for @Column, mapped automatically to NAME
 	private String name;
 
-	// This is not a simple mapping as Percentage is not a simple type.
-	// You need to map Percentage.value from a column in T_RESTAURANT.  If unsure,
-	// look at how Beneficiary does it.
-	@AttributeOverride(name="value", column=@Column(name="BENEFIT_PERCENTAGE"))
+	@AttributeOverride(name="value",column=@Column(name="BENEFIT_PERCENTAGE"))
 	private Percentage benefitPercentage;
 
 
@@ -36,6 +41,7 @@ public class Restaurant {
 	// The bonus section later will redo this mapping.
 	@Transient
 	private BenefitAvailabilityPolicy benefitAvailabilityPolicy = AlwaysAvailable.INSTANCE;
+
 
 	public Restaurant() {
 		//Needed by the JPA spec

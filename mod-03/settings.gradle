@@ -1,0 +1,3 @@
+rootProject.name = 'parentProject'
+include(':00-rewards-common')
+include(':34-spring-data-jpa')

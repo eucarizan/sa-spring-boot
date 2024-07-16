@@ -10,8 +10,7 @@ import org.springframework.data.repository.Repository;
  * Objects returned by this repository are guaranteed to be fully initialized
  * and ready to use.
  */
-
-public interface AccountRepository extends Repository<Account, Long> {
+public interface AccountRepository extends Repository<Account,Long> {
 
 	/**
 	 * Load an account by its credit card.
@@ -20,7 +19,6 @@ public interface AccountRepository extends Repository<Account, Long> {
 	 *            the credit card number
 	 * @return the account object
 	 */
-	// To refactor: right click on the method name -> Refactor -> Rename
-	public Account findByCreditCard(String creditCardNumber);
+	public Account findByCreditCardNumber(String creditCardNumber);
 
 }
