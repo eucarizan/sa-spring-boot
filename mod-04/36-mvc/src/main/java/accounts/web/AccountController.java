@@ -2,6 +2,7 @@ package accounts.web;
 
 import accounts.AccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RestController;
 import rewards.internal.account.Account;
 
 import java.util.List;
@@ -17,8 +18,8 @@ import java.util.List;
  * -Repository layer: AccountRepository interface
  *
  */
-// TODO-03: Add an appropriate annotation to make this class a REST controller
 	
+@RestController
 public class AccountController {
 
 	private final AccountManager accountManager;
