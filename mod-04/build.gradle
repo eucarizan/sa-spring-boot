@@ -50,12 +50,16 @@ subprojects {
       sourceCompatibility = '11'
     }
 
-    tasks.withType(JavaCompile) {
+    tasks.withType(JavaCompile).configureEach {
         options.encoding = 'UTF-8'
     }
 
     test {
         useJUnitPlatform()
+
+        testLogging {
+            events "PASSED", "FAILED", "SKIPPED"
+        }
     }
 
 }
