@@ -1,4 +1,4 @@
-# Module 4 - Spring Boot - Spring Data JPA Lab
+# Module 3 - Spring Boot - Spring Data JPA Lab
 ## Agenda
 In this lab you will gain experience with Spring Data JPA. You will see that Spring Boot greatly simplifies handling data through JPA without the plumbing necessary with Spring or standalone apps.
 
