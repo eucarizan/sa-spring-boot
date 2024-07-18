@@ -46,10 +46,4 @@ public class AccountController {
 	public Account accountById(@PathVariable("entityId") Long id) {
 	        return accountManager.getAccount(id);
 	}
-
-	// TODO-11: Run the application
-	// - You should now be able to invoke http://localhost:8080/accounts/N
-	//   where N is 0-20 and get a response. You can use curl, Postman or
-	//   your browser to do this.
-
 }
