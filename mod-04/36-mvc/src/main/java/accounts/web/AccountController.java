@@ -47,10 +47,6 @@ public class AccountController {
 	        return accountManager.getAccount(id);
 	}
 
-
-	// TODO-10b: If AccountControllerTests.testHandleDetailsRequest()
-	//  fails, fix errors before moving on
-
 	// TODO-11: Run the application
 	// - You should now be able to invoke http://localhost:8080/accounts/N
 	//   where N is 0-20 and get a response. You can use curl, Postman or

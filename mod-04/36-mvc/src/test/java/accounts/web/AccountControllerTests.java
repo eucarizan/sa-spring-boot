@@ -40,9 +40,7 @@ public class AccountControllerTests {
 		assertEquals(expectedAccountNumber, account.getNumber());
 	}
 
-	// TODO-10a: Remove the @Disabled annotation, run the test, it should pass.
 	@Test
-	@Disabled
 	public void testHandleDetailsRequest() {
 		Account account = controller.accountById(expectedAccountId);
 
