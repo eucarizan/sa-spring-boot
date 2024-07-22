@@ -83,5 +83,17 @@ public class AccountClientTests {
 		});
 		assertEquals(HttpStatus.NOT_FOUND, httpClientErrorException.getStatusCode());
 	}
-	
+
+	@Test
+	public void createSameAccountTwiceResultsIn409() {
+		Account account = new Account("123123123", "Xdd Conflict");
+		account.addBeneficiary("Jane Doe");
+
+		HttpClientErrorException httpClientErrorException = assertThrows(HttpClientErrorException.class, () -> {
+		         restTemplate.postForObject(BASE_URL + "/accounts", account, Account.class);
+		         restTemplate.postForObject(BASE_URL + "/accounts", account, Account.class);
+		});
+		assertEquals(HttpStatus.CONFLICT, httpClientErrorException.getStatusCode());
+	}
+
 }
