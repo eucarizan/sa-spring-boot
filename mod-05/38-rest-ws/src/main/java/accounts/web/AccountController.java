@@ -44,11 +44,6 @@ public class AccountController {
 	/**
 	 * Provide the details of an account with the given id.
 	 */
-	// TODO-04: Review the code that performs the following
-	// a. Respond to GET /accounts/{accountId}
-    // b. Return an Account to be converted to the response body
-	// - Access http://localhost:8080/accounts/0 using a browser or curl
-	//   and verify that you see the account detail in JSON format
 	@GetMapping(value = "/accounts/{id}")
 	public Account accountDetails(@PathVariable int id) {
 		return retrieveAccount(id);

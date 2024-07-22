@@ -33,13 +33,8 @@ public class AccountClientTests {
 	}
 	
 	@Test
-	@Disabled
 	public void getAccount() {
-		// TODO-05: Run this test
-		// - Remove the @Disabled on this test method.
-		// - Then, use the restTemplate to retrieve the Account with id 0 using a URI template
-		// - Run the test and ensure that it passes.
-		Account account = null; // Modify this line to use the restTemplate
+		Account account = restTemplate.getForObject(BASE_URL + "/accounts/0", Account.class);
 		
 		assertNotNull(account);
 		assertEquals("Keith and Keri Donald", account.getName());
