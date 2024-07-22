@@ -36,11 +36,6 @@ public class AccountController {
 	/**
 	 * Provide a list of all accounts.
 	 */
-	// TODO-02: Review the code that performs the following
-	// a. Respond to GET /accounts
-    // b. Return a List<Account> to be converted to the response body
-	// - Access http://localhost:8080/accounts using a browser or curl
-	//   and verify that you see the list of accounts in JSON format.
 	@GetMapping(value = "/accounts")
 	public List<Account> accountSummary() {
 		return accountManager.getAllAccounts();
