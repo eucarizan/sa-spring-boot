@@ -74,14 +74,13 @@ public class AccountController {
 	 *   http://localhost:8080/accounts/1111.
 	 */
 	private ResponseEntity<Void> entityWithLocation(Object resourceId) {
+		URI location = ServletUriComponentsBuilder
+		        .fromCurrentRequestUri()
+			.path("/{id}")
+			.buildAndExpand(resourceId)
+			.toUri();
 
-		// TODO-07: Set the 'location' header on a Response to URI of
-		//          the newly created resource and return it.
-		// a. You will need to use 'ServletUriComponentsBuilder' and
-		//     'ResponseEntity' to implement this - Use ResponseEntity.created(..)
-		// b. Refer to the POST example in the slides for more information
-
-		return null; // Return something other than null
+		return ResponseEntity.created(location).build();
 	}
 
 	/**
