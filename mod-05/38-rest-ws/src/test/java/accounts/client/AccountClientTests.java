@@ -34,7 +34,7 @@ public class AccountClientTests {
 	
 	@Test
 	public void getAccount() {
-		Account account = restTemplate.getForObject(BASE_URL + "/accounts/0", Account.class);
+		Account account = restTemplate.getForObject(BASE_URL + "/accounts/{id}", Account.class, 0);
 		
 		assertNotNull(account);
 		assertEquals("Keith and Keri Donald", account.getName());
