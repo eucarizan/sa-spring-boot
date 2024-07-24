@@ -7,7 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.http.ResponseEntity;
 import rewards.internal.account.Account;
 import rewards.internal.account.Beneficiary;
 
@@ -15,7 +15,6 @@ import java.net.URI;
 import java.util.Random;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class AccountClientTests {
@@ -23,13 +22,9 @@ public class AccountClientTests {
 	@Autowired
 	private TestRestTemplate restTemplate;
 
-	/**
-	 * server URL ending with the servlet mapping on which the application can be
-	 * reached.
-	 */
 	private static final String BASE_URL = "";
 
-	private Random random = new Random();
+	private final Random random = new Random();
 
 	@Test
 	public void listAccounts() {
@@ -71,15 +66,6 @@ public class AccountClientTests {
 		assertThat(retrievedAccount.getEntityId()).isNotNull();
 	}
 
-	// TODO-04: Modify the code below so that it handles 404 HTTP response status
-	//          from the server (instead of handling it as an exception as in the
-	//          case of RestTemplate)
-	// - Remove the "assertThrows" statement (since you are not going to
-	//   check if an exception is thrown)
-	// - Use "getForEntity" method (instead of "getForObject" method) of
-	//   "TestRestTemplate"
-	// - Verify that the HTTP response status is 404
-	// - Run all tests - they should all pass
 	@Test
 	public void addAndDeleteBeneficiary() {
 		// perform both add and delete to avoid issues with side effects
@@ -90,11 +76,8 @@ public class AccountClientTests {
 
 		restTemplate.delete(newBeneficiaryLocation);
 
-		HttpClientErrorException httpClientErrorException = assertThrows(HttpClientErrorException.class, () -> {
-			System.out.println("You SHOULD get the exception \"No such beneficiary with name 'David'\" in the server.");
-			restTemplate.getForObject(newBeneficiaryLocation, Beneficiary.class);
-		});
-		assertThat(httpClientErrorException.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+		ResponseEntity<Beneficiary> response = restTemplate.getForEntity(newBeneficiaryLocation, Beneficiary.class);
+		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
 	}
 
 	// TODO-05: Observe a log message in the console indicating
