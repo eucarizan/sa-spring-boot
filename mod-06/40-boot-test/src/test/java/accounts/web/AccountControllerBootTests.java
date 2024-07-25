@@ -11,6 +11,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import rewards.internal.account.Account;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.*;
 import static org.mockito.Mockito.verify;
@@ -52,8 +55,22 @@ public class AccountControllerBootTests {
 	}
 
 	@Test
-	public void createAccount() throws Exception {
+	public void accountSummary() throws Exception {
+	    List<Account> testAccounts = Arrays.asList(new Account("1234567890", "John Doe"));
+	    given(accountManager.getAllAccounts())
+	        .willReturn(testAccounts);
 
+	    mockMvc.perform(get("/accounts"))
+	        .andExpect(status().isOk())
+		.andExpect(content().contentType(MediaType.APPLICATION_JSON))
+		.andExpect(jsonPath("$..number").value("1234567890"))
+		.andExpect(jsonPath("$..name").value("John Doe"));
+
+	    verify(accountManager).getAllAccounts();
+	}
+
+	@Test
+	public void createAccount() throws Exception {
 	    Account testAccount = new Account("1234512345", "Mary Jones");
 	    testAccount.setEntityId(21L);
 
@@ -80,10 +97,5 @@ public class AccountControllerBootTests {
 			throw new RuntimeException(e);
 		}
 	}
-
-	// TODO-13 (Optional): Experiment with @MockBean vs @Mock
-	// - Change `@MockBean` to `@Mock` for the `AccountManager dependency above
-	// - Run the test and observe a test failure
-	// - Change it back to `@MockBean`
 
 }
