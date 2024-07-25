@@ -104,6 +104,19 @@ public class AccountControllerBootTests {
 	    verify(accountManager).getAccount(anyLong());
 	}
 
+	@Test
+	public void getBeneficiaryFail() throws Exception {
+	    Account testAccount = new Account("1234567890", "John Doe");
+
+	    given(accountManager.getAccount(anyLong()))
+	        .willReturn(testAccount);
+
+	    mockMvc.perform(get("/accounts/{accountId}/beneficiaries/{beneficiaryName}", 0L, "Corgan"))
+	        .andExpect(status().isNotFound());
+	    
+	    verify(accountManager).getAccount(anyLong());
+	}
+
 	// Utility class for converting an object into JSON string
 	protected static String asJsonString(final Object obj) {
 		try {
