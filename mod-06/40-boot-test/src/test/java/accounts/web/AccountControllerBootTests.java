@@ -124,6 +124,20 @@ public class AccountControllerBootTests {
 		.andExpect(header().string("Location", "http://localhost/accounts/0/beneficiaries/Kate"));
 	}
 
+	@Test
+	public void removeBeneficiary() throws Exception {
+	    Account testAccount = new Account("1234567890", "John Doe");
+	    testAccount.addBeneficiary("Corgan", new Percentage(0.1));
+
+	    given(accountManager.getAccount(anyLong()))
+	        .willReturn(testAccount);
+
+	    mockMvc.perform(delete("/accounts/{accountId}/beneficiaries/{beneficiaryName}", 0L, "Corgan"))
+	        .andExpect(status().isNoContent());
+	    
+	    verify(accountManager).getAccount(anyLong());
+	}
+
 	// Utility class for converting an object into JSON string
 	protected static String asJsonString(final Object obj) {
 		try {
