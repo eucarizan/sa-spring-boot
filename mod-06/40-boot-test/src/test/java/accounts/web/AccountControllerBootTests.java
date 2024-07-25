@@ -117,6 +117,13 @@ public class AccountControllerBootTests {
 	    verify(accountManager).getAccount(anyLong());
 	}
 
+	@Test
+	public void addBeneficiary() throws Exception {
+	    mockMvc.perform(post("/accounts/{accountId}/beneficiaries", 0L).content("Kate"))
+	        .andExpect(status().isCreated())
+		.andExpect(header().string("Location", "http://localhost/accounts/0/beneficiaries/Kate"));
+	}
+
 	// Utility class for converting an object into JSON string
 	protected static String asJsonString(final Object obj) {
 		try {
