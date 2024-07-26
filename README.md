@@ -7,6 +7,6 @@ This course provides both an introduction, and a deep dive into the most common 
 ### [3: Spring Boot - Spring Data JPA](./mod-03/summary.md)
 ### [4: Web Applicaiton with Spring Boot](./mod-04/summary.md)
 ### [5: RESTful Application with Spring Boot](./mod-05/summary.md)
-### 6: Spring Boot Testing
-### 7: Securing REST Application with Spring Security
+### [6: Spring Boot Testing](./mod-06/summary.md)
+### [7: Securing REST Application with Spring Security](./mod-07/summary.md)
 ### 8: Actuator
