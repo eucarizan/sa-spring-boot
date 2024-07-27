@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = "2.7.5"
+        springBootVersion = "3.1.6"
         easyMockVersion = "4.3"
         jmonVersion = "2.82"
     }
@@ -48,7 +48,7 @@ subprojects {
 
     sourceCompatibility = '11'
 
-    tasks.withType(JavaCompile) {
+    tasks.withType(JavaCompile).configureEach {
         options.encoding = 'UTF-8'
     }
 
