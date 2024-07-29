@@ -46,12 +46,6 @@ public class RestSecurityConfig {
     @Bean
     public InMemoryUserDetailsManager userDetailsService(PasswordEncoder passwordEncoder) {
 
-        // TODO-05: Add three users with corresponding roles:
-        // - "user"/"user" with "USER" role (example code is provided below)
-        // - "admin"/"admin" with "USER" and "ADMIN" roles
-        // - "superadmin"/"superadmin" with "USER", "ADMIN", and "SUPERADMIN" roles
-        // (Make sure to store the password in encoded form.)
-        // - pass all users in the InMemoryUserDetailsManager constructor
         UserDetails user = User.withUsername("user")
                 .password(passwordEncoder.encode("user")).roles("USER").build();
         UserDetails admin = User.withUsername("admin")
