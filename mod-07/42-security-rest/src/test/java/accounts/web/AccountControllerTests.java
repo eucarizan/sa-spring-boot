@@ -155,19 +155,16 @@ public class AccountControllerTests {
         verify(accountManager).save(any(Account.class));
     }
 
-    // TODO-06b: Write a test that verifies that a user with "USER" role
-    //          is not permitted to perform POST operation
-    // - Use the code above (in the previous test) as a guidance
-    //   but without using "given" and "verify" methods.
-    //   (The "given" and "verify" methods are not required for
-    //    this testing because security failure will prevent
-    //    calling a method of a dependency.)
     @Test
-    @Disabled
+    @WithMockUser(roles = {"USER"})
     public void createAccount_with_USER_role_should_return_403() throws Exception {
-
-
-
+        Account testAccount = new Account("1234512345", "Mary Jones");
+        testAccount.setEntityId(21L);
+        
+        mockMvc.perform(post("/accounts")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(asJsonString(testAccount)))
+               .andExpect(status().isForbidden());
     }
 
     @Test
