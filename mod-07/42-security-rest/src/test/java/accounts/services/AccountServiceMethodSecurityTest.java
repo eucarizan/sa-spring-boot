@@ -12,11 +12,6 @@ import org.springframework.http.ResponseEntity;
 
 import static org.assertj.core.api.Assertions.*;
 
-// TODO-12a: Perform method security testing with a running server
-// - Take some time to understand what each test is for
-// - Remove @Disabled annotation from each test and run it
-// - Make sure all tests pass
-
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 class AccountServiceMethodSecurityTest {
 
@@ -24,9 +19,7 @@ class AccountServiceMethodSecurityTest {
     private TestRestTemplate restTemplate;
 
     @Test
-    @Disabled
     void getAuthoritiesForUser_should_return_403_for_user() {
-
         ResponseEntity<String> responseEntity = restTemplate.withBasicAuth("user", "user")
                                                          .getForEntity("/authorities?username=user", String.class);
 
@@ -34,7 +27,6 @@ class AccountServiceMethodSecurityTest {
     }
 
     @Test
-    @Disabled
     void getAuthoritiesForUser_should_return_authorities_for_admin() {
 
         String[] authorities = restTemplate.withBasicAuth("admin", "admin")
@@ -51,6 +43,7 @@ class AccountServiceMethodSecurityTest {
     //           three roles "ROLE_SUPERADMIN", "ROLE_ADMIN", and
     //           "ROLE_USER".
     @Test
+    @Disabled
     public void getAuthoritiesForUser_should_return_authorities_for_superadmin() {
 
 

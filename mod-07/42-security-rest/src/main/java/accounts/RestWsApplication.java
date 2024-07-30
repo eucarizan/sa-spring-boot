@@ -17,28 +17,6 @@ public class RestWsApplication {
 
 }
 
-// TODO-11: Test the method security using browser or curl
-// - Re-run this application
-// - Using Chrome Incognito browser, access
-//   http://localhost:8080/authorities?username=user
-// - Enter "user"/"user" and verify that 403 failure occurs
-// - If you want to use "curl", use
-//   curl -i -u user:user http://localhost:8080/authorities?username=user
-//
-// - Close the Chrome Incognito browser and start a new one
-// - Access http://localhost:8080/authorities?username=admin
-// - Enter "admin"/"admin" and verify that the roles are displayed successfully
-// - If you want to use "curl", use
-//   curl -i -u admin:admin http://localhost:8080/authorities?username=admin
-//
-// - Close the Chrome Incognito browser and start a new one
-// - Access http://localhost:8080/authorities?username=superadmin
-// - Enter "superadmin"/"superadmin" and verify that the roles are displayed successfully
-// - If you want to use "curl", use
-//   curl -i -u superadmin:superadmin http://localhost:8080/authorities?username=superadmin
-
-// ------------------------------------------------
-
 // TODO-15 (Optional): Verify that the newly added custom UserDetailsService works
 // - Re-run this application
 // - Using Chrome Incognito browser, access
