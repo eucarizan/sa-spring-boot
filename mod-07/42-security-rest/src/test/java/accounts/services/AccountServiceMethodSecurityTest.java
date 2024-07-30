@@ -28,26 +28,21 @@ class AccountServiceMethodSecurityTest {
 
     @Test
     void getAuthoritiesForUser_should_return_authorities_for_admin() {
-
         String[] authorities = restTemplate.withBasicAuth("admin", "admin")
                                            .getForObject("/authorities?username=admin", String[].class);
         assertThat(authorities.length).isEqualTo(2);
         assertThat(authorities.toString().contains("ROLE_ADMIN"));
         assertThat(authorities.toString().contains("ROLE_USER"));
-
     }
 
-    // TODO-12b: Write a test that verifies that getting authorities
-    //           using "/authorities?username=superadmin" with
-    //           "superadmin"/"superadmin" credential should return
-    //           three roles "ROLE_SUPERADMIN", "ROLE_ADMIN", and
-    //           "ROLE_USER".
     @Test
-    @Disabled
     public void getAuthoritiesForUser_should_return_authorities_for_superadmin() {
+        String[] authorities = restTemplate.withBasicAuth("superadmin", "superadmin")
+                .getForObject("/authorities?username=superadmin", String[].class);
 
-
-
+        assertThat(authorities.length).isEqualTo(3);
+        assertThat(authorities.toString().contains("ROLE_USER"));
+        assertThat(authorities.toString().contains("ROLE_ADMIN"));
+        assertThat(authorities.toString().contains("ROLE_SUPERADMIN"));
     }
-
 }
