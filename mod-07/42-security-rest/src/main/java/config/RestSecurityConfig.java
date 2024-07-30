@@ -38,10 +38,7 @@ public class RestSecurityConfig {
         return http.build();
     }
 
-    // TODO-14b (Optional): Remove the InMemoryUserDetailsManager definition
-    // - Comment the @Bean annotation below
-
-    @Bean
+    // @Bean
     public InMemoryUserDetailsManager userDetailsService(PasswordEncoder passwordEncoder) {
 
         UserDetails user = User.withUsername("user")
