@@ -7,10 +7,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-//TODO-18b (Optional): Remove the CustomUserDetailsService definition
-// - Comment the @Component annotation added in a previous task
-
-@Component
+// @Component
 public class CustomUserDetailsService implements UserDetailsService {
 
     private PasswordEncoder passwordEncoder;
