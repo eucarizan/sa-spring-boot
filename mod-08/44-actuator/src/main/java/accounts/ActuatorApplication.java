@@ -8,23 +8,6 @@ import org.springframework.context.annotation.Import;
 import config.AppConfig;
 
 /**
- * TODO-06: Publish build information
- * - Add an appropriate plugin to pom.xml (for Maven) or BuildInfo task to
- *   build.gradle (for Gradle)
- * - Rebuild the application preferably at the command line
- *   ./mvnw -pl 00-rewards-common -pl 01-rewards-db -pl 44-actuator clean install (for Maven)
- *   ./gradlew 44-actuator:clean 44-actuator:build (for Gradle)
- * - Verify the presence of the build-info.properties file as following
- *   ./target/classes/META-INF/build-info.properties (for Maven)
- *   ./build/resources/main/META-INF/build-info.properties (for Gradle)
- * - Restart the application and access "info" endpoint and verify the build
- *   info gets displayed
- *
- * TODO-07 (Optional): Add additional properties to the info endpoint
-
- *
- * ------------------------------------------------
- *
  * TODO-14: Look for TO-DO-14 in application.properties
  *
  * ------------------------------------------------
