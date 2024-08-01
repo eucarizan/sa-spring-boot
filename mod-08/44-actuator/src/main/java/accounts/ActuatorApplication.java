@@ -8,21 +8,6 @@ import org.springframework.context.annotation.Import;
 import config.AppConfig;
 
 /**
- * TODO-05: Change log level via ./actuator/loggers endpoint
- * - Verify the current logging level of the "accounts.web" package is DEBUG
- *   (Access localhost:8080/actuator/loggers/accounts.web)
- * - Add "logger.debug("Logging message within accountSummary()");" inside
- *   "accountSummary()" method in the "AccountController" class - this
- *   message will be used to verify if we can change the
- *   logging level without restarting the application
- * - Restart the application and access "/accounts" URL and verify
- *   the log message gets displayed
- * - Change logging level of "accounts.web" package to INFO using curl
- *   command below (or use Postman)
- *   curl -i -XPOST -H"Content-Type: application/json" localhost:8080/actuator/loggers/accounts.web -d'{"configuredLevel": "INFO"}'
- * - Access "/accounts" URL (WITHOUT restarting the application) and verify
- *   the logging message no longer gets displayed
- *
  * TODO-06: Publish build information
  * - Add an appropriate plugin to pom.xml (for Maven) or BuildInfo task to
  *   build.gradle (for Gradle)
