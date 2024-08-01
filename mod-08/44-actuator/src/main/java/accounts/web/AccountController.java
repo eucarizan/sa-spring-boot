@@ -23,13 +23,6 @@ import java.util.List;
 /**
  * A controller handling requests for CRUD operations on Accounts and their
  * Beneficiaries.
- * <p>
- * TODO-11: Access the new "/metrics/account.fetch" metric
- * - Let the application get restarted via devtools
- * - Access "/metrics" endpoint, and verify the presence of "account.fetch" metric
- * - Access some accounts (i.e. http://localhost:8080/accounts/1)
- * - View the counter value at http://localhost:8080/actuator/metrics/account.fetch
- * - Restart the application. What happens to the counter?
  */
 @RestController
 public class AccountController {
@@ -47,7 +40,6 @@ public class AccountController {
 
     /**
      * Provide a list of all accounts.
-     * <p>
      */
     @GetMapping(value = "/accounts")
     @Timed(value = "account.timer", extraTags = {"source", "accountSummary"})
