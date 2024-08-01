@@ -25,7 +25,7 @@ public class AccountClientTests {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    private Random random = new Random();
+    private final Random random = new Random();
 
     @Test
     public void listAccounts_using_invalid_user_should_return_401() throws Exception {

@@ -6,10 +6,8 @@ import accounts.services.AccountService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import common.money.Percentage;
 import config.RestSecurityConfig;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
@@ -18,11 +16,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import rewards.internal.account.Account;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.*;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -44,7 +41,7 @@ public class AccountControllerTests {
     @WithMockUser(roles = {"INVALID"})
     void accountSummary_with_invalid_role_should_return_403() throws Exception {
         mockMvc.perform(get("/accounts"))
-               .andExpect(status().isForbidden());
+                .andExpect(status().isForbidden());
     }
 
     @Test
@@ -55,9 +52,9 @@ public class AccountControllerTests {
 
         // act and assert
         mockMvc.perform(get("/accounts/0"))
-               .andExpect(status().isOk())
-               .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-               .andExpect(jsonPath("name").value("John Doe")).andExpect(jsonPath("number").value("1234567890"));
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("name").value("John Doe")).andExpect(jsonPath("number").value("1234567890"));
 
         // verify
         verify(accountManager).getAccount(0L);
@@ -71,9 +68,9 @@ public class AccountControllerTests {
 
         // act and assert
         mockMvc.perform(get("/accounts/0"))
-               .andExpect(status().isOk())
-               .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-               .andExpect(jsonPath("name").value("John Doe")).andExpect(jsonPath("number").value("1234567890"));
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("name").value("John Doe")).andExpect(jsonPath("number").value("1234567890"));
 
         // verify
         verify(accountManager).getAccount(0L);
@@ -87,9 +84,9 @@ public class AccountControllerTests {
 
         // act and assert
         mockMvc.perform(get("/accounts/0"))
-               .andExpect(status().isOk())
-               .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-               .andExpect(jsonPath("name").value("John Doe")).andExpect(jsonPath("number").value("1234567890"));
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("name").value("John Doe")).andExpect(jsonPath("number").value("1234567890"));
 
         // verify
         verify(accountManager).getAccount(0L);
@@ -103,10 +100,10 @@ public class AccountControllerTests {
 
         // act and assert
         mockMvc.perform(get("/accounts/0"))
-               .andExpect(status().isOk())
-               .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-               .andExpect(jsonPath("name").value("John Doe"))
-               .andExpect(jsonPath("number").value("1234567890"));
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("name").value("John Doe"))
+                .andExpect(jsonPath("number").value("1234567890"));
 
         // verify
         verify(accountManager).getAccount(0L);
@@ -119,7 +116,7 @@ public class AccountControllerTests {
                 .willThrow(new IllegalArgumentException("No such account with id " + 0L));
 
         mockMvc.perform(get("/accounts/0"))
-               .andExpect(status().isNotFound());
+                .andExpect(status().isNotFound());
 
         verify(accountManager).getAccount(any(Long.class));
     }
@@ -127,14 +124,14 @@ public class AccountControllerTests {
     @Test
     @WithMockUser(roles = {"ADMIN"})
     public void accountSummary_with_ADMIN_role_should_return_200() throws Exception {
-        List<Account> testAccounts = Arrays.asList(new Account("123456789", "John Doe"));
+        List<Account> testAccounts = List.of(new Account("123456789", "John Doe"));
         given(accountManager.getAllAccounts()).willReturn(testAccounts);
 
         mockMvc.perform(get("/accounts"))
-               .andExpect(status().isOk())
-               .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-               .andExpect(jsonPath("$..number").value("123456789"))
-               .andExpect(jsonPath("$..name").value("John Doe"));
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$..number").value("123456789"))
+                .andExpect(jsonPath("$..name").value("John Doe"));
 
         verify(accountManager).getAllAccounts();
     }
@@ -147,10 +144,10 @@ public class AccountControllerTests {
         given(accountManager.save(any(Account.class))).willReturn(testAccount);
 
         mockMvc.perform(post("/accounts")
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .content(asJsonString(testAccount)))
-               .andExpect(status().isCreated())
-               .andExpect(header().string("Location", "http://localhost/accounts/21"));
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(testAccount)))
+                .andExpect(status().isCreated())
+                .andExpect(header().string("Location", "http://localhost/accounts/21"));
 
         verify(accountManager).save(any(Account.class));
     }
@@ -160,11 +157,11 @@ public class AccountControllerTests {
     public void createAccount_with_USER_role_should_return_403() throws Exception {
         Account testAccount = new Account("1234512345", "Mary Jones");
         testAccount.setEntityId(21L);
-        
+
         mockMvc.perform(post("/accounts")
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .content(asJsonString(testAccount)))
-               .andExpect(status().isForbidden());
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(testAccount)))
+                .andExpect(status().isForbidden());
     }
 
     @Test
@@ -175,10 +172,10 @@ public class AccountControllerTests {
         given(accountManager.getAccount(0L)).willReturn(account);
 
         mockMvc.perform(get("/accounts/{accountId}/beneficiaries/{beneficiaryName}", 0L, "Corgan"))
-               .andExpect(status().isOk())
-               .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-               .andExpect(jsonPath("name").value("Corgan"))
-               .andExpect(jsonPath("allocationPercentage").value("0.1"));
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("name").value("Corgan"))
+                .andExpect(jsonPath("allocationPercentage").value("0.1"));
 
         verify(accountManager).getAccount(0L);
     }
@@ -187,15 +184,15 @@ public class AccountControllerTests {
     @WithMockUser(roles = {"ADMIN", "SUPERADMIN"})
     public void addBeneficiary_with_ADMIN_or_SUPERADMIN_role_should_return_201() throws Exception {
         mockMvc.perform(post("/accounts/{entityId}/beneficiaries", 0L).content("Kate"))
-               .andExpect(status().isCreated())
-               .andExpect(header().string("Location", "http://localhost/accounts/0/beneficiaries/Kate"));
+                .andExpect(status().isCreated())
+                .andExpect(header().string("Location", "http://localhost/accounts/0/beneficiaries/Kate"));
     }
 
     @Test
     @WithMockUser(roles = {"USER"})
     public void addBeneficiary_with_USER_role_should_return_403() throws Exception {
         mockMvc.perform(post("/accounts/{entityId}/beneficiaries", 0L).content("Kate"))
-               .andExpect(status().isForbidden());
+                .andExpect(status().isForbidden());
     }
 
     @Test
@@ -206,7 +203,7 @@ public class AccountControllerTests {
         given(accountManager.getAccount(0L)).willReturn(account);
 
         mockMvc.perform(delete("/accounts/{entityId}/beneficiaries/{name}", 0L, "Corgan"))
-               .andExpect(status().isNoContent());
+                .andExpect(status().isNoContent());
 
         verify(accountManager).getAccount(0L);
     }
@@ -219,7 +216,7 @@ public class AccountControllerTests {
         given(accountManager.getAccount(0L)).willReturn(account);
 
         mockMvc.perform(delete("/accounts/{entityId}/beneficiaries/{name}", 0L, "Corgan"))
-               .andExpect(status().isForbidden());
+                .andExpect(status().isForbidden());
     }
 
     @Test
@@ -229,7 +226,7 @@ public class AccountControllerTests {
         given(accountManager.getAccount(0L)).willReturn(account);
 
         mockMvc.perform(delete("/accounts/{entityId}/beneficiaries/{name}", 0L, "Noname"))
-               .andExpect(status().isNotFound());
+                .andExpect(status().isNotFound());
 
         verify(accountManager).getAccount(0L);
     }
@@ -237,8 +234,7 @@ public class AccountControllerTests {
     protected static String asJsonString(final Object obj) {
         try {
             final ObjectMapper mapper = new ObjectMapper();
-            final String jsonContent = mapper.writeValueAsString(obj);
-            return jsonContent;
+            return mapper.writeValueAsString(obj);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
