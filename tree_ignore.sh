@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-tree -I '*gradle*' -I 'build' -I 'static'
+tree -I 'gradle|build|static'

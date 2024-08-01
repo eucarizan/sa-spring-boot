@@ -8,19 +8,6 @@ import org.springframework.context.annotation.Import;
 import config.AppConfig;
 
 /**
- * <p>
- * TODO-17: Verify the behavior of custom health indicator
- * - Let the application to restart (via devtools)
- * - Access the health indicator - it should be DOWN as there are no restaurants.
- * <p>
- * TODO-18: Verify the behavior of custom health indicator with change
- * - Modify the `spring.sql.init.data-locations` property in the application.properties
- *   to use `data-with-restaurants.sql`
- * - Let the application to restart (via devtools)
- * - Access the health indicator - it should be UP this time
- * <p>
- * ------------------------------------------------
- * <p>
  * TODO-20: Look for "TO-DO-20: Organize health indicators into groups"
  *          in the application.properties
  */
