@@ -8,16 +8,6 @@ import org.springframework.context.annotation.Import;
 import config.AppConfig;
 
 /**
- * TODO-02: Run this application. Try these URLs:
- * - http://localhost:8080/actuator - should work
- * - http://localhost:8080/actuator/metrics - fails (404), why?
- *
- * TODO-03: Expose some endpoints
- *          (Look for TO-DO-03 in application.properties)
- *
- * TODO-04: Expose all endpoints
- *          (Look for TO-DO-04 in application.properties)
- *
  * TODO-05: Change log level via ./actuator/loggers endpoint
  * - Verify the current logging level of the "accounts.web" package is DEBUG
  *   (Access localhost:8080/actuator/loggers/accounts.web)
