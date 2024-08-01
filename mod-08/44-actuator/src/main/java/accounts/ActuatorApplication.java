@@ -8,19 +8,6 @@ import org.springframework.context.annotation.Import;
 import config.AppConfig;
 
 /**
- * TODO-00: In this lab, you are going to exercise the following:
- * - Exposing and accessing various actuator endpoints
- * - Changing logging level of a package by sending post request to "loggers" endpoint
- * - Publishing build information via "info" endpoint
- * - Adding micrometer counter metric with a tag
- * - Adding micrometer timer metric
- * - Adding custom health indicator
- * - Configuring security against actuator endpoints
- * - Using AOP for counter operation (optional step)
- *
- * TODO-01: Note that the Actuator starter is already set up for you.
- *          (Look for TO-DO-01 in the pom.xml or build.gradle)
- *
  * TODO-02: Run this application. Try these URLs:
  * - http://localhost:8080/actuator - should work
  * - http://localhost:8080/actuator/metrics - fails (404), why?
