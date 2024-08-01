@@ -9,7 +9,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 // TODO-24: Run the tests checking security configuration for the actuator endpoints
 // - Take some time to understand what each test is for
@@ -42,7 +42,7 @@ public class AccountClientSecurityTests {
     public void any_user_cannot_access_conditions_endpoint() {
         ResponseEntity<String> responseEntity
                 = restTemplate.withBasicAuth("anyuser", "anyuser")
-                              .getForEntity("/actuator/conditions", String.class);
+                .getForEntity("/actuator/conditions", String.class);
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
     }
 
@@ -51,7 +51,7 @@ public class AccountClientSecurityTests {
     public void user_in_ADMIN_role_can_access_conditions_endpoint() {
         ResponseEntity<String> responseEntity
                 = restTemplate.withBasicAuth("admin", "admin")
-                              .getForEntity("/actuator/conditions", String.class);
+                .getForEntity("/actuator/conditions", String.class);
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 
@@ -60,7 +60,7 @@ public class AccountClientSecurityTests {
     public void user_in_ACTUATOR_role_cannot_access_conditions_endpoint() {
         ResponseEntity<String> responseEntity
                 = restTemplate.withBasicAuth("actuator", "actuator")
-                              .getForEntity("/actuator/conditions", String.class);
+                .getForEntity("/actuator/conditions", String.class);
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.FORBIDDEN);
     }
 
