@@ -7,10 +7,6 @@ import org.springframework.context.annotation.Import;
 
 import config.AppConfig;
 
-/**
- * TODO-20: Look for "TO-DO-20: Organize health indicators into groups"
- *          in the application.properties
- */
 @SpringBootApplication
 @Import(AppConfig.class)
 @EntityScan("rewards.internal")

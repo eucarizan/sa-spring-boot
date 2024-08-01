@@ -29,8 +29,8 @@ public class AccountController {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    private AccountManager accountManager;
-    private Counter counter;
+    private final AccountManager accountManager;
+    private final Counter counter;
 
     @Autowired
     public AccountController(AccountManager accountManager, MeterRegistry registry) {
@@ -100,7 +100,7 @@ public class AccountController {
         }
         Beneficiary deletedBeneficiary = account.getBeneficiary(beneficiaryName);
 
-        HashMap<String, Percentage> allocationPercentages = new HashMap<String, Percentage>();
+        HashMap<String, Percentage> allocationPercentages = new HashMap<>();
 
         // If we are removing the only beneficiary or the beneficiary has an
         // allocation of zero we don't need to worry. Otherwise, need to share
@@ -166,13 +166,13 @@ public class AccountController {
     }
 
     /**
-     * Return a response with the location of the new resource. It's URL is assumed
+     * Return a response with the location of the new resource. Its URL is assumed
      * to be a child of the URL just received.
      * <p>
      * Suppose we have just received an incoming URL of, say,
-     * http://localhost:8080/accounts and resourceId is
+     * <a href="http://localhost:8080/accounts">...</a> and resourceId is
      * "12345". Then the URL of the new resource will be
-     * http://localhost:8080/accounts/12345.
+     * <a href="http://localhost:8080/accounts/12345">...</a>.
      */
     private ResponseEntity<Void> entityWithLocation(Object resourceId) {
 

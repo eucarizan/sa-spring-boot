@@ -6,10 +6,17 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
 }
 
 springBoot {
-    buildInfo()
+    buildInfo {
+        properties {
+            name = "actuator app"
+            additional = [
+                javaVersion: System.properties['java.version'],
+                operatingSystem: "${System.properties['os.name']} (${System.properties['os.version']})"
+                ]
+        }
+    }
 }
-
-// TO-DO-08: Add additional properties of name, javaVersion, operatingSystem

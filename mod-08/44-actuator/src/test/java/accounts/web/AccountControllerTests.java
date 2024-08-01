@@ -4,7 +4,6 @@ import accounts.internal.StubAccountManager;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -14,6 +13,7 @@ import rewards.internal.account.Account;
 import rewards.internal.account.Beneficiary;
 
 import java.util.List;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -29,7 +29,7 @@ public class AccountControllerTests {
     private Counter counter;
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         registry = mock(MeterRegistry.class);
         counter = mock(Counter.class);
         doReturn(counter).when(registry).counter(any(String.class), any(String.class), any(String.class));
@@ -38,10 +38,6 @@ public class AccountControllerTests {
     }
 
     @Test
-    // TODO-19: Test the actuator endpoints
-    // - Remove @Disabled annotation below
-    // - Run this test - it should pass
-    @Disabled
     public void testHandleDetailsRequest() {
         Account account = controller.accountDetails(0);
         assertNotNull(account);
@@ -72,7 +68,7 @@ public class AccountControllerTests {
         assertNotNull(result);
 
         // See StubAccountManager.nextEntityId - initialized to 3
-        assertEquals("http://localhost/accounts/3", result.getHeaders().getLocation().toString());
+        assertEquals("http://localhost/accounts/3", Objects.requireNonNull(result.getHeaders().getLocation()).toString());
     }
 
     @Test
@@ -92,7 +88,7 @@ public class AccountControllerTests {
 
         HttpEntity<?> result = controller.addBeneficiary(0L, "Test2");
         assertNotNull(result);
-        assertEquals("http://localhost/accounts/0/beneficiaries/Test2", result.getHeaders().getLocation().toString());
+        assertEquals("http://localhost/accounts/0/beneficiaries/Test2", Objects.requireNonNull(result.getHeaders().getLocation()).toString());
     }
 
     @Test
@@ -102,9 +98,7 @@ public class AccountControllerTests {
 
     @Test
     public void testDeleteBeneficiaryFail() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            controller.removeBeneficiary(0L, "Fred");
-        });
+        assertThrows(IllegalArgumentException.class, () -> controller.removeBeneficiary(0L, "Fred"));
     }
 
     /**
@@ -119,7 +113,7 @@ public class AccountControllerTests {
 
         // We can use Spring's convenient mock implementation. Defaults to
         // localhost in the URL. Since we only need the URL, we don't need
-        // to setup anything else in the request.
+        // to set up anything else in the request.
         MockHttpServletRequest request = new MockHttpServletRequest("POST", requestURI);
 
         // Puts the fake request in the current thread for the
