@@ -2,6 +2,7 @@ package accounts.web;
 
 import accounts.AccountManager;
 import common.money.Percentage;
+import io.micrometer.core.annotation.Timed;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 import org.slf4j.Logger;
@@ -47,24 +48,16 @@ public class AccountController {
     /**
      * Provide a list of all accounts.
      * <p>
-     * TODO-12: Add Timer metric
-     * - Add @Timed annotation to this method
-     * - Set the metric name to "account.timer"
-     * - Set a extra tag with "source"/"accountSummary" key/value pair
      */
     @GetMapping(value = "/accounts")
+    @Timed(value = "account.timer", extraTags = {"source", "accountSummary"})
     public List<Account> accountSummary() {
         logger.debug("Logging message within accountSummary()");
         return accountManager.getAllAccounts();
     }
 
-    /**
-     * TODO-13: Add Timer metric
-     *  - Add @Timed annotation to this method
-     *  - Set the metric name to "account.timer"
-     *  - Set extra tag with "source"/"accountDetails" key/value pair
-     */
     @GetMapping(value = "/accounts/{id}")
+    @Timed(value = "account.timer", extraTags = {"source", "accountDetails"})
     public Account accountDetails(@PathVariable int id) {
         counter.increment();
 
